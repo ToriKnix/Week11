@@ -15,8 +15,13 @@ app.get('/api/notes', (req, res) => {
       console.error(err);
       return res.status(500).json({ error: 'Failed to read notes.' });
     }
-    const notes = JSON.parse(data);
-    res.json(notes);
+    try {
+      const notes = JSON.parse(data);
+      res.json(notes);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Failed to parse notes.' });
+    }
   });
 });
 
